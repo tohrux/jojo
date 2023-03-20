@@ -4,7 +4,6 @@ import HelloWorldVue from "@/components/HelloWorld.vue";
 Vue.use(VueRouter);
 const routes = [
   { path: "/foo", component: HelloWorldVue },
-  { path: "/", component: HelloWorldVue },
 ];
 
 // 3. 创建 router 实例，然后传 `routes` 配置

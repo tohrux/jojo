@@ -1,0 +1,33 @@
+import sys
+import subprocess
+
+def get_bilibili_download_url(video_url):
+    try:
+        output = subprocess.check_output(['you-get', '-i', video_url])
+        output_lines = output.decode('utf-8').split('\n')
+
+        download_urls = []
+
+        for line in output_lines:
+            if line.startswith('Real URLs:'):
+                download_urls.append(line.replace('Real URLs:', '').strip())
+
+        return download_urls
+    except subprocess.CalledProcessError as e:
+        print(f"Error: {e.output.decode('utf-8')}")
+        return None
+
+if __name__ == "__main__":
+    if len(sys.argv) != 2:
+        print("Usage: python bilibili_downloader.py <video_url>")
+        sys.exit(1)
+
+    video_url = sys.argv[1]
+    download_urls = get_bilibili_download_url(video_url)
+
+    if download_urls:
+        print("下载地址：")
+        for url in download_urls:
+            print(url)
+    else:
+        print("无法获取下载地址。")

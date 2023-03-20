@@ -1,25 +1,29 @@
 <template>
   <div id="app">
-    <router-view/>
+    <custom-video :videoSrc="currentSrc"></custom-video>
+    <input v-model="inputSrc" @change="updateSrc" placeholder="输入新视频链接">
   </div>
 </template>
 
 <script>
+import CustomVideo from '@/components/CustomVideo.vue';
 
 export default {
   name: 'App',
   components: {
+    CustomVideo
+  },
+  data() {
+    return {
+      currentSrc: 'https://www.example.com/video.mp4',
+      inputSrc: ''
+    };
+  },
+  methods: {
+    updateSrc() {
+      this.currentSrc = this.inputSrc;
+      this.inputSrc = '';
+    }
   }
-}
+};
 </script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
